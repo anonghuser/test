@@ -1,2 +1,4 @@
 # Github pages test
-Jekyll linqud stuff {{ 'enabled' }}
+<code>
+{{ site | jsonify }}
+</code>
