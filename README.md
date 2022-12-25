@@ -1,4 +1,3 @@
 # Github pages test
-<code>
-{{ site | jsonify }}
-</code>
+<code>{{ site.collections.products | jsonify }}</code>
+<code>{{ site.products | jsonify }}</code>
