@@ -1,7 +1,7 @@
 <head>
   <script>
     (async()=>{
-      await navigator.serviceWorker.register("sw.js", {type: 'module', scope: 'fs/'})
+      await navigator.serviceWorker.register("sw.js", {type: 'module'})
       console.log('test')
       console.log(await fetch('fs/').then(r=>r.json()))
     })()
