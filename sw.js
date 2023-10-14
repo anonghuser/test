@@ -1,1 +1,1 @@
-console.log('in sw.js')
+console.log('in sw.js', location.href)
