@@ -1,3 +1,12 @@
+<head>
+  <script>
+    (async()=>{
+      await navigator.serviceWorker.register("/sw.js", {type: 'module'})
+      console.log('test')
+      console.log(await fetch('fs/').then(r=>r.json()))
+    })()
+  </script>
+</head>
 <body>
   test
 </body>
