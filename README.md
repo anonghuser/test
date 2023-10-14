@@ -1,3 +1,1 @@
-# Github pages test
-<code>{{ site.collections | jsonify }}</code>
-<code>{{ site.products | jsonify }}</code>
+<a href="https://anonghuser.github.io/test/" target="_blank">https://anonghuser.github.io/test/</a>
