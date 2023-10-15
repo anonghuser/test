@@ -22,7 +22,7 @@
       console.log('1', navigator.serviceWorker.controller);
       await wait(swreg.installing || swreg.waiting);
       console.log('2', navigator.serviceWorker.controller);
-      console.log(await fetch('fs/').then(r=>r.json()))
+      document.body.append(await fetch('proxy').then(r=>r.url))
     })()
   </script>
 </head>
