@@ -1,5 +1,7 @@
 console.log('in sw.js', location.href, registration.scope)
 
+const id = Math.ceil(Math.random()*1000) + '-' + Date.now();
+
 addEventListener("install", async (event) => {
   console.log('in sw.js', 'install')
   await skipWaiting();
@@ -27,6 +29,11 @@ addEventListener("fetch", (event) => {
   }
   else if (event.request.url.includes('proxy')) {
     event.respondWith(fetch(registration.scope));
+  }
+  else if (event.request.url.includes('getswid')) {
+    const response = new Response(new Blob([id]));
+    Object.defineProperty(response, 'url', {value: 'https://funwithserviceworkers.com/getswid'});
+    event.respondWith(response);
   }
 });
 
