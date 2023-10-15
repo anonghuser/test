@@ -24,7 +24,7 @@ addEventListener("fetch", (event) => {
     }))
   }
   else if (event.request.url.contains('proxy')) {
-    event.respondWith(fetch(registration.scope)),
+    event.respondWith(fetch(registration.scope));
   }
 });
 
