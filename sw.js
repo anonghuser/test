@@ -10,6 +10,8 @@ addEventListener("activate", async (event) => {
   console.log('in sw.js', 'activate')
   await clients.claim();
   console.log('in sw.js', 'claim done')
+  await registration.unregister();
+  console.log('in sw.js', 'unregister done')
 });
 
 addEventListener("fetch", (event) => {
