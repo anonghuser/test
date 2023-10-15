@@ -15,9 +15,9 @@
         })
       }
       const swreg = await navigator.serviceWorker.register("sw.js?a=b#c", {type: 'module'});
-      console.log(swreg);
+      console.log(swreg.installing, swreg.waiting);
       console.log('1', navigator.serviceWorker.controller);
-      await wait(swreg.installing);
+      await wait(swreg.installing || swreg.waiting);
       console.log('2', navigator.serviceWorker.controller);
       console.log(await fetch('fs/').then(r=>r.json()))
     })()
