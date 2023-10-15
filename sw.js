@@ -1,6 +1,5 @@
-console.log('in sw.js', location.href, registration.scope)
-
 const id = Math.ceil(Math.random()*1000) + '-' + Date.now();
+console.log('in sw.js', id, location.href, registration.scope)
 
 addEventListener("install", async (event) => {
   console.log('in sw.js', 'install')
