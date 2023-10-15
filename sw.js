@@ -14,7 +14,7 @@ addEventListener("activate", async (event) => {
 
 addEventListener("fetch", (event) => {
   console.log('sw fetch', event.request.url);
-  if (event.request.url.contains('redirect')) {
+  if (event.request.url.includes('redirect')) {
     event.respondWith(new Response(null, {
       status: 302,
       statusText: 'Teapot go there',
@@ -23,7 +23,7 @@ addEventListener("fetch", (event) => {
       },
     }))
   }
-  else if (event.request.url.contains('proxy')) {
+  else if (event.request.url.includes('proxy')) {
     event.respondWith(fetch(registration.scope));
   }
 });
