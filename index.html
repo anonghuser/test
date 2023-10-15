@@ -14,7 +14,7 @@
           })
         })
       }
-      const swreg = await navigator.serviceWorker.register("sw.js?a=b#c", {type: 'module'});
+      const swreg = await navigator.serviceWorker.register("sw.js?a=b#c", {type: 'module', scope:'./#boo'});
       console.log(swreg.installing, swreg.waiting);
       console.log('1', navigator.serviceWorker.controller);
       await wait(swreg.installing || swreg.waiting);
