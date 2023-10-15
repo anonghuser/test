@@ -1,18 +1,30 @@
-console.log('in sw.js', location.href)
+console.log('in sw.js', location.href, registration.scope)
 
-addEventListener("install", (event) => {
-  skipWaiting();
+addEventListener("install", async (event) => {
+  console.log('in sw.js', 'install')
+  await skipWaiting();
+  console.log('in sw.js', 'skipWaiting done')
 });
 
-addEventListener("activate", (event) => {
-  clients.claim();
-  registration.unregister();
+addEventListener("activate", async (event) => {
+  console.log('in sw.js', 'activate')
+  await clients.claim();
+  console.log('in sw.js', 'claim done')
 });
 
 addEventListener("fetch", (event) => {
   console.log('sw fetch', event.request.url);
-  if (event.request.url.startsWith('https://fake')) {
-    event.respondWith(new Response(new Blob(['zzz'], {type: 'text/plain'})))
+  if (event.request.url.contains('redirect')) {
+    event.respondWith(new Response(null, {
+      status: 302,
+      statusText: 'Teapot go there',
+      headers: {
+        location: registration.scope,
+      },
+    }))
+  }
+  else if (event.request.url.contains('proxy')) {
+    event.respondWith(fetch(registration.scope)),
   }
 });
 
