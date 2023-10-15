@@ -22,7 +22,9 @@
       console.log('1', navigator.serviceWorker.controller);
       await wait(swreg.installing || swreg.waiting);
       console.log('2', navigator.serviceWorker.controller);
-      document.body.append(await fetch('proxy').then(r=>r.url))
+      const r = await fetch('getswid');
+      document.body.append(r.url);
+      document.body.append(await r.text());
     })()
   </script>
 </head>
