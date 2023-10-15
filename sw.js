@@ -1,5 +1,9 @@
 console.log('in sw.js', location.href)
 
+addEventListener("install", (event) => {
+  skipWaiting();
+});
+
 addEventListener("activate", (event) => {
   clients.claim();
   registration.unregister();
