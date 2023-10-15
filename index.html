@@ -1,6 +1,9 @@
 <head>
   <script>
     (async()=>{
+      navigator.serviceWorker.addEventListener('controllerchange', event => {
+        console.log('controllerchange', navigator.serviceWorker.controller);
+      });
       async function wait(sw) {
         if (!sw || sw.state=='activated') return;
         await new Promise((resolve, reject) => {
