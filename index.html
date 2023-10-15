@@ -1,30 +1,11 @@
 <head>
   <script>
     (async()=>{
-      navigator.serviceWorker.addEventListener('controllerchange', event => {
-        console.log('controllerchange', navigator.serviceWorker.controller);
-      });
-      async function wait(sw) {
-        if (!sw || sw.state=='activated') return;
-        await new Promise((resolve, reject) => {
-          sw.addEventListener('statechange', event => {
-            console.log(sw.state);
-            if (sw.state == 'activated') resolve();
-          })
-          sw.addEventListener('error', event => {
-            console.log('sw error', event);
-            reject('sw error');
-          })
-        })
+      await navigator.serviceWorker.register("sw.js", {type: 'module'});
+      if (!navigator.serviceWorker.controller) {
+        await new Promise(resolve => navigator.serviceWorker.addEventListener('controllerchange', resolve))
       }
-      const swreg = await navigator.serviceWorker.register("sw.js?a=b#c", {type: 'module', scope:'./#boo'});
-      console.log(swreg.installing, swreg.waiting);
-      console.log('1', navigator.serviceWorker.controller);
-      await wait(swreg.installing || swreg.waiting);
-      console.log('2', navigator.serviceWorker.controller);
-      const r = await fetch('getswid');
-      document.body.append(r.url);
-      document.body.append(await r.text());
+      console.log(navigator.serviceWorker.controller.scriptURL + ' ' + navigator.serviceWorker.controller.state);
     })()
   </script>
 </head>
