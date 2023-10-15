@@ -6,7 +6,10 @@ addEventListener("activate", (event) => {
 });
 
 addEventListener("fetch", (event) => {
-  console.log('sw fetch', event);
+  console.log('sw fetch', event.request.url);
+  if (event.request.url.startsWith('https://fake')) {
+    event.respondWith(new Response(new Blob(['zzz'], {type: 'text/plain'})))
+  }
 });
 
 addEventListener("message", (event) => {
