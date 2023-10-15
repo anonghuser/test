@@ -2,7 +2,9 @@
   <script>
     (async()=>{
       await navigator.serviceWorker.register("sw.js?a=b#c", {type: 'module'})
-      console.log('test')
+      console.log('1', navigator.serviceWorker.controller)
+      await navigator.serviceWorker.ready
+      console.log('2', navigator.serviceWorker.controller)
       console.log(await fetch('fs/').then(r=>r.json()))
     })()
   </script>
