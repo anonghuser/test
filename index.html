@@ -1,10 +1,8 @@
 <head>
   <script>
     (async()=>{
-      await navigator.serviceWorker.register("sw.js?a=b#c", {type: 'module'})
-      console.log('1', navigator.serviceWorker.controller)
-      await navigator.serviceWorker.controller || new Promise(r => addEventListener("controllerchange", (event) => r(navigator.serviceWorker.controller)))
-      console.log('2', navigator.serviceWorker.controller)
+      const swreg = await navigator.serviceWorker.register("sw.js?a=b#c", {type: 'module'});
+      console.log(swreg);
       console.log(await fetch('fs/').then(r=>r.json()))
     })()
   </script>
