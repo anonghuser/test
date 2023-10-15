@@ -1,8 +1,24 @@
 <head>
   <script>
     (async()=>{
+      async function wait(sw) {
+        if (!sw || sw.state=='activated') return;
+        await new Promise((resolve, reject) => {
+          sw.addEventListener('statechange', event => {
+            console.log(sw.state);
+            if (sw.state == 'activated') resolve();
+          })
+          sw.addEventListener('error', event => {
+            console.log('sw error', event);
+            reject('sw error');
+          })
+        })
+      }
       const swreg = await navigator.serviceWorker.register("sw.js?a=b#c", {type: 'module'});
       console.log(swreg);
+      console.log('1', navigator.serviceWorker.controller);
+      await wait(swreg.installing);
+      console.log('2', navigator.serviceWorker.controller);
       console.log(await fetch('fs/').then(r=>r.json()))
     })()
   </script>
