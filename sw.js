@@ -1,8 +1,9 @@
 console.log('in sw.js', location.href)
 
 addEventListener("activate", (event) => {
-  event.waitUntil(clients.claim());
-  registration.unregister();
+  const claim = clients.claim();
+  event.waitUntil(claim);
+  claim.then(()=>registration.unregister());
 });
 
 addEventListener("fetch", (event) => {
