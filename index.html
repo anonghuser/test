@@ -24,13 +24,16 @@
     log(navigator.serviceWorker.controller.scriptURL + ' ' + navigator.serviceWorker.controller.state);
 
     navigator.serviceWorker.addEventListener('message', e => {
-      log('message', e.data)
+      //log('message', e.data)
       e.stopImmediatePropagation()
     })
 
     const response = await fetch('fake')
-    for await(const chunk of response.body.getReader()) {
-      log(chunk)
+    const reader = response.body.getReader()
+    while(true) {
+      const {value, done} = await reader.read()
+      if (done) break
+      log(value)
     }
   </script>
 </head>
