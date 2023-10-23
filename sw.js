@@ -6,11 +6,10 @@ addEventListener("activate", async (event) => {
   await clients.claim();
 });
 
-function JSONify(value, skip = []) {
+function JSONify(root, skip = []) {
   const seenmap = new Map
-  return JSON.parse(JSON.stringify(value, function (key, value) {
-    const parentPath = this ? seenmap.get(this) : []
-    const path = [...parentPath||[], key]
+  return JSON.parse(JSON.stringify(root, function (key, value) {
+    const path = value===root ? [] : [...seenmap.get(this), key]
     if (value && typeof value == 'object') {
       if (skip.includes(value)) return `<skip>`
       const seenPath = seenmap.get(value)
