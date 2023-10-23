@@ -7,7 +7,7 @@ addEventListener("activate", async (event) => {
 });
 
 function JSONify(value, skip = []) {
-  return JSON.parse(JSON.stringify(event, function (key, value) {
+  return JSON.parse(JSON.stringify(value, function (key, value) {
     const parentPath = this ? seenmap.get(this) : []
     const path = [...parentPath, key]
     if (value && typeof value == 'object') {
