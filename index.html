@@ -33,7 +33,7 @@
     while(true) {
       const {value, done} = await reader.read()
       if (done) break
-      log(value)
+      log(value.length, value.slice(0, 15).toString())
     }
   </script>
 </head>
