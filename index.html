@@ -1,6 +1,7 @@
 <head>
   <script>
-    function log(text) {
+    function log(...args) {
+      const text = args.map(arg => JSON.stringify(arg)).join(' ')
       document.body.append(Object.assign(document.createElement('pre'), {
         textContent: text
       }))
