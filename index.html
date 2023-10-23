@@ -30,14 +30,14 @@
 
     const response = await fetch('fake')
     const reader = response.body.getReader()
-    log(new Date)
+    log(new Date+'')
     while(true) {
       const {value, done} = await reader.read()
       if (done) break
       const text = new TextDecoder().decode(value).slice(0, 15)
       log(value.length, text)
     }
-    log(new Date)
+    log(new Date+'')
   </script>
 </head>
 <body>
