@@ -9,7 +9,7 @@ addEventListener("activate", async (event) => {
 const activeStreams = []
 
 addEventListener("fetch", async (event) => {
-  const client = clients.get(event.clientId)
+  const client = await clients.get(event.clientId)
   client.postMessage({type: 'z', data: event})
   return
   if (event.request.url.includes('fake')) {
