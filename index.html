@@ -28,7 +28,7 @@
       e.stopImmediatePropagation()
     })
 
-    const response = await fetch('https://httpbin.org/drip?numbytes=2000&duration=10&delay=5')
+    const response = await fetch('https://httpbin.org/drip?numbytes=2000&duration=2&delay=1')
     const reader = response.body.getReader()
     log(new Date)
     while(true) {
