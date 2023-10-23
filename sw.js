@@ -9,11 +9,16 @@ addEventListener("activate", async (event) => {
 const activeStreams = []
 
 addEventListener("fetch", async (event) => {
-  console.log(event)
-  const client = await clients.get(event.clientId)
-  client.postMessage({type: 'z', data: JSON.parse(JSON.stringify(event))})
-  return
   if (event.request.url.includes('fake')) {
+    const client = await clients.get(event.clientId)
+    client.postMessage({type: 'z', data: JSON.parse(JSON.stringify(event, (key, value) => {
+      if (typeof value == 'object') {
+        const result = {}
+        for (const key in obj) result[key] = obj[key]
+        return result
+      }
+    }))})
+    return
     const stream = new ReadableStream({
       start(controller) {
 
