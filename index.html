@@ -16,7 +16,7 @@
 
     navigator.serviceWorker.addEventListener('message', e => {
       log('m1', e.data)
-      return false
+      e.stopImmediatePropagation()
     })
     navigator.serviceWorker.addEventListener('message', e => {
       log('m2')
