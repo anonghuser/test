@@ -15,7 +15,7 @@ addEventListener("fetch", async (event) => {
     client.postMessage({type: 'z', data: JSON.parse(JSON.stringify(event, function (key, value) {
       const parentPath = seenmap.get(this) || []
       const path = [...parentPath, key]
-      if (typeof value == 'object') {
+      if (value && typeof value == 'object') {
         const seenPath = seenmap.get(value)
         if (seenPath) {
           const recursion = seenPath.join() == path.slice(0, seenPath.length).join()
