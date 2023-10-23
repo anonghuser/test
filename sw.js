@@ -10,7 +10,7 @@ function JSONify(value, skip = []) {
   const seenmap = new Map
   return JSON.parse(JSON.stringify(value, function (key, value) {
     const parentPath = this ? seenmap.get(this) : []
-    const path = [...parentPath, key]
+    const path = [...parentPath||[], key]
     if (value && typeof value == 'object') {
       if (skip.includes(value)) return `<skip>`
       const seenPath = seenmap.get(value)
