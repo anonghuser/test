@@ -42,6 +42,8 @@ addEventListener("fetch", event => {
       const stream = new ReadableStream({
         async start(controller) {
           controller.enqueue(Uint8Array.from([69, 70, 71]))
+          await new Promise(r=>setTimeout(r, 1000))
+          controller.enqueue(Uint8Array.from([69, 70, 71]))
           headers.append('x-wat', 'hmm')
           controller.close()
         }
