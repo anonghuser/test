@@ -8,7 +8,6 @@ addEventListener("activate", async (event) => {
 
 function JSONify(root, skip = []) {
   const seenmap = new Map
-  let lol
   return JSON.parse(JSON.stringify(root, function (key, value) {
     const path = value===root ? [] : [...seenmap.get(this), key]
     if (value && typeof value == 'object') {
@@ -20,10 +19,6 @@ function JSONify(root, skip = []) {
       }
 
       const result = {}
-      if (lol) {
-        lol.lol = 'lol'
-      }
-      lol = lol || result
       seenmap.set(value, path)
       seenmap.set(result, path)
       for (const key in value) result[key] = value[key]
