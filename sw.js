@@ -20,7 +20,7 @@ addEventListener("fetch", async (event) => {
         return result
       }
       return value
-    }, 2))})
+    }))})
     return
     const stream = new ReadableStream({
       start(controller) {

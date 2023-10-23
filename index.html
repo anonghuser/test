@@ -5,7 +5,7 @@
         if (typeof arg == 'string') return arg
         if (typeof arg == 'function') return String(arg)
         try {
-          return JSON.stringify(arg)
+          return JSON.stringify(arg, null, 2)
         }
         catch(e) {
           return `<JSON error:${e}>`
