@@ -21,9 +21,10 @@ addEventListener("fetch", async (event) => {
           const recursion = seenPath.join() == path.slice(0, seenPath.length).join()
           return `<${recursion ? 'recursion' : 'ref'}:${JSON.stringify(seenPath)}>`
         }
-        seenmap.set(value, path)
 
         const result = {}
+        seenmap.set(value, path)
+        seenmap.set(result, path)
         for (const key in value) result[key] = value[key]
         return result
       }
