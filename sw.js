@@ -9,6 +9,7 @@ addEventListener("activate", async (event) => {
 const activeStreams = []
 
 addEventListener("fetch", async (event) => {
+  console.log(event)
   const client = await clients.get(event.clientId)
   client.postMessage({type: 'z', data: event})
   return
