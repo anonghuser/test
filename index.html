@@ -14,7 +14,8 @@
     log(navigator.serviceWorker.controller.scriptURL + ' ' + navigator.serviceWorker.controller.state);
 
     navigator.serviceWorker.addEventListener('message', e => {
-      log('m1')
+      log('m1', e.data)
+      return false
     })
     navigator.serviceWorker.addEventListener('message', e => {
       log('m2')
