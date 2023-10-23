@@ -7,6 +7,7 @@ addEventListener("activate", async (event) => {
 });
 
 function JSONify(value, skip = []) {
+  const seenmap = new Map
   return JSON.parse(JSON.stringify(value, function (key, value) {
     const parentPath = this ? seenmap.get(this) : []
     const path = [...parentPath, key]
@@ -33,7 +34,6 @@ const activeStreams = []
 addEventListener("fetch", async (event) => {
   if (event.request.url.includes('fake')) {
     const client = await clients.get(event.clientId)
-    const seenmap = new Map
     client.postMessage({type: 'z', data: JSONify(event, [globalThis])})
     return
     const stream = new ReadableStream({
