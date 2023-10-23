@@ -1,14 +1,18 @@
 <head>
   <script>
-    (async()=>{
-      await navigator.serviceWorker.register("sw.js", {type: 'module'});
-      if (!navigator.serviceWorker.controller) {
-        await new Promise(resolve => navigator.serviceWorker.addEventListener('controllerchange', resolve))
-      }
-      console.log(navigator.serviceWorker.controller.scriptURL + ' ' + navigator.serviceWorker.controller.state);
-    })()
+    function log(text) {
+      document.body.append(Object.assign(document.createElement('pre'), {
+        textContent: text
+      }))
+    }
+  </script>
+  <script type="module">
+    await navigator.serviceWorker.register("sw.js", {type: 'module'});
+    if (!navigator.serviceWorker.controller) {
+      await new Promise(resolve => navigator.serviceWorker.addEventListener('controllerchange', resolve))
+    }
+    log(navigator.serviceWorker.controller.scriptURL + ' ' + navigator.serviceWorker.controller.state);
   </script>
 </head>
 <body>
-  test
 </body>
