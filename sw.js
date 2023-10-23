@@ -30,7 +30,7 @@ function JSONify(root, skip = []) {
 
 const activeStreams = []
 
-addEventListener("fetch", event => event.waitUntil((async (event) => {
+addEventListener("fetch", event => event.respondWith((async (event) => {
   if (event.request.url.includes('fake')) {
     const client = await clients.get(event.clientId)
     client.postMessage(JSONify({type: 'fetch', data: event}, [globalThis]))
@@ -45,11 +45,11 @@ addEventListener("fetch", event => event.waitUntil((async (event) => {
         controller.close()
       }
     })
-    event.respondWith(new Response(stream, {
+    return new Response(stream, {
       status: 222,
       statusText: 'Teapot go there',
       headers,
-    }))
+    })
   }
 })(event)));
 
