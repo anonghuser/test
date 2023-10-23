@@ -34,18 +34,21 @@ addEventListener("fetch", async (event) => {
   if (event.request.url.includes('fake')) {
     const client = await clients.get(event.clientId)
     client.postMessage(JSONify({type: 'fetch', data: event}, [globalThis]))
-    return
+    const headers = new Headers({
+      'trailers':'x-wat',
+      'x-lol': registration.scope,
+    })
     const stream = new ReadableStream({
-      start(controller) {
-
+      async start(controller) {
+        controller.enqueue('lol')
+        headers.append('x-wat', 'hmm')
+        controller.close()
       }
     })
-    event.respondWith(new Response(null, {
-      status: 302,
+    event.respondWith(new Response(stream, {
+      status: 222,
       statusText: 'Teapot go there',
-      headers: {
-        location: registration.scope,
-      },
+      headers,
     }))
   }
 });
