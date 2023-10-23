@@ -17,10 +17,12 @@ addEventListener("fetch", async (event) => {
       const path = [...parentPath, key]
       if (typeof value == 'object') {
         const seenPath = seenmap.get(value)
-        if (seenPath.join() == path.slice(0, seenPath.length).join()) return `<recurse:${JSON.stringify(seenPath)}>`
-        if (seenPath) return `<ref:${JSON.stringify(seenPath)}>`
+        if (seenPath) {
+          const recursion = seenPath.join() == path.slice(0, seenPath.length).join()
+          return `<${recursion ? 'recursion' : 'ref'}:${JSON.stringify(seenPath)}>`
+        }
         seenmap.set(value, path)
-        
+
         const result = {}
         for (const key in value) result[key] = value[key]
         return result
