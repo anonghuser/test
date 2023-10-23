@@ -6,30 +6,35 @@ addEventListener("activate", async (event) => {
   await clients.claim();
 });
 
+function JSONify(value, skip = []) {
+  return JSON.parse(JSON.stringify(event, function (key, value) {
+    const parentPath = this ? seenmap.get(this) : []
+    const path = [...parentPath, key]
+    if (value && typeof value == 'object') {
+      if (skip.includes(value)) return `<skip>`
+      const seenPath = seenmap.get(value)
+      if (seenPath) {
+        const recursion = seenPath.join() == path.slice(0, seenPath.length).join()
+        return `<${recursion ? 'recursion' : 'ref'}:${JSON.stringify(seenPath)}>`
+      }
+
+      const result = {}
+      seenmap.set(value, path)
+      seenmap.set(result, path)
+      for (const key in value) result[key] = value[key]
+      return result
+    }
+    return value
+  }))
+}
+
 const activeStreams = []
 
 addEventListener("fetch", async (event) => {
   if (event.request.url.includes('fake')) {
     const client = await clients.get(event.clientId)
     const seenmap = new Map
-    client.postMessage({type: 'z', data: JSON.parse(JSON.stringify(event, function (key, value) {
-      const parentPath = seenmap.get(this) || []
-      const path = [...parentPath, key]
-      if (value && typeof value == 'object') {
-        const seenPath = seenmap.get(value)
-        if (seenPath) {
-          const recursion = seenPath.join() == path.slice(0, seenPath.length).join()
-          return `<${recursion ? 'recursion' : 'ref'}:${JSON.stringify(seenPath)}>`
-        }
-
-        const result = {}
-        seenmap.set(value, path)
-        seenmap.set(result, path)
-        for (const key in value) result[key] = value[key]
-        return result
-      }
-      return value
-    }))})
+    client.postMessage({type: 'z', data: JSONify(event, [globalThis])})
     return
     const stream = new ReadableStream({
       start(controller) {
