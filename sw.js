@@ -41,7 +41,7 @@ addEventListener("fetch", event => {
       })
       const stream = new ReadableStream({
         async start(controller) {
-          controller.enqueue('lol')
+          controller.enqueue(Uint8Array.from([69, 70, 71]))
           headers.append('x-wat', 'hmm')
           controller.close()
         }
