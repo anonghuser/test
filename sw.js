@@ -33,7 +33,7 @@ const activeStreams = []
 addEventListener("fetch", async (event) => {
   if (event.request.url.includes('fake')) {
     const client = await clients.get(event.clientId)
-    client.postMessage({type: 'z', data: JSONify(event)})
+    client.postMessage(JSONify({type: 'z', data: event}))
     return
     const stream = new ReadableStream({
       start(controller) {
