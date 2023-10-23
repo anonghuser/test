@@ -30,7 +30,7 @@ function JSONify(root, skip = []) {
 
 const activeStreams = []
 
-addEventListener("fetch", async (event) => {
+addEventListener("fetch", event => event.waitUntil((async (event) => {
   if (event.request.url.includes('fake')) {
     const client = await clients.get(event.clientId)
     client.postMessage(JSONify({type: 'fetch', data: event}, [globalThis]))
@@ -51,7 +51,7 @@ addEventListener("fetch", async (event) => {
       headers,
     }))
   }
-});
+})(event)));
 
 addEventListener("message", (event) => {
   console.log('sw message', event);
