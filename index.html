@@ -12,6 +12,14 @@
       await new Promise(resolve => navigator.serviceWorker.addEventListener('controllerchange', resolve))
     }
     log(navigator.serviceWorker.controller.scriptURL + ' ' + navigator.serviceWorker.controller.state);
+
+    navigator.serviceWorker.addEventListener('message', e => {
+      log('m1')
+    })
+    navigator.serviceWorker.addEventListener('message', e => {
+      log('m2')
+    })
+    navigator.serviceWorker.onmessage = e=>log('on m')
   </script>
 </head>
 <body>
