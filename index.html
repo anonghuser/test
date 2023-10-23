@@ -30,11 +30,13 @@
 
     const response = await fetch('https://httpbin.org/drip?numbytes=200&duration=10&delay=5')
     const reader = response.body.getReader()
+    log(new Date)
     while(true) {
       const {value, done} = await reader.read()
       if (done) break
       log(value.length, value.slice(0, 15).toString())
     }
+    log(new Date)
   </script>
 </head>
 <body>
