@@ -30,28 +30,30 @@ function JSONify(root, skip = []) {
 
 const activeStreams = []
 
-addEventListener("fetch", event => event.respondWith((async (event) => {
+addEventListener("fetch", event => {
   if (event.request.url.includes('fake')) {
-    const client = await clients.get(event.clientId)
-    client.postMessage(JSONify({type: 'fetch', data: event}, [globalThis]))
-    const headers = new Headers({
-      'trailers':'x-wat',
-      'x-lol': registration.scope,
-    })
-    const stream = new ReadableStream({
-      async start(controller) {
-        controller.enqueue('lol')
-        headers.append('x-wat', 'hmm')
-        controller.close()
-      }
-    })
-    return new Response(stream, {
-      status: 222,
-      statusText: 'Teapot go there',
-      headers,
-    })
+    event.respondWith((async () => {
+      const client = await clients.get(event.clientId)
+      client.postMessage(JSONify({type: 'fetch', data: event}, [globalThis]))
+      const headers = new Headers({
+        'trailers':'x-wat',
+        'x-lol': registration.scope,
+      })
+      const stream = new ReadableStream({
+        async start(controller) {
+          controller.enqueue('lol')
+          headers.append('x-wat', 'hmm')
+          controller.close()
+        }
+      })
+      return new Response(stream, {
+        status: 222,
+        statusText: 'Teapot go there',
+        headers,
+      })
+    })())
   }
-})(event)));
+});
 
 addEventListener("message", (event) => {
   console.log('sw message', event);
