@@ -18,6 +18,7 @@
   </script>
   <script type="module">
     await navigator.serviceWorker.register("../sw.js?sub", {type: 'module', scope: '.'});
+    await navigator.serviceWorker.register("../sw.js?fub", {type: 'module', scope: 'fub?wub'});
     if (!navigator.serviceWorker.controller) {
       await new Promise(resolve => navigator.serviceWorker.addEventListener('controllerchange', resolve))
     }
