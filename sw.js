@@ -8,7 +8,7 @@ function addRoute(options, client) {
     })
 }
 
-import JSONify from 'jsonify.js'
+import JSONify from './jsonify.js'
 
 
 
