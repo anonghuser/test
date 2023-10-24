@@ -22,7 +22,7 @@
       await new Promise(resolve => navigator.serviceWorker.addEventListener('controllerchange', ()=>{
         log('controllerchange', navigator.serviceWorker.controller)
         resolve()
-      }))
+      }, {once: true}))
     }
     log(navigator.serviceWorker.controller.scriptURL + ' ' + navigator.serviceWorker.controller.state);
 

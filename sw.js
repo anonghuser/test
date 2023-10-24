@@ -39,6 +39,7 @@ addEventListener("fetch", event => {
         'trailers':'x-wat',
         'x-lol': registration.scope,
       })
+      headers.append('x-twat', 'mmh')
       const stream = new ReadableStream({
         async start(controller) {
           controller.enqueue(Uint8Array.from([69, 70, 71]))
