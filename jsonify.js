@@ -1,4 +1,4 @@
-function JSONify(root, skip = []) {
+export default function JSONify(root, skip = []) {
     const seenmap = new Map
     return JSON.parse(JSON.stringify(root, function (key, value) {
         const path = value === root ? [] : [...seenmap.get(this), key]
