@@ -19,7 +19,10 @@
   <script type="module">
     await navigator.serviceWorker.register("sw.js", {type: 'module'});
     if (!navigator.serviceWorker.controller) {
-      await new Promise(resolve => navigator.serviceWorker.addEventListener('controllerchange', resolve))
+      await new Promise(resolve => navigator.serviceWorker.addEventListener('controllerchange', ()=>{
+        log('controllerchange', navigator.serviceWorker.controller)
+        resolve()
+      }))
     }
     log(navigator.serviceWorker.controller.scriptURL + ' ' + navigator.serviceWorker.controller.state);
 
